@@ -150,54 +150,54 @@ void G2k14s_class::dyn() {
 
 uint16_t G2k14s_class::asc2G2k14s( const char c ) {
   	if( ( c >= 0x20 ) && ( c < 0x80 ) ) {
-    	return( ptn[ c - 0x20 ] );
+		return( ptn[ c - 0x20 ] );
   	}
   	else {
-    	return( 0x63E9 );  // special pattern
+		return( 0x63E9 );  // special pattern
   	}
 }
 
 void G2k14s_class::flow( const int delay_time_ms, const char c[] ) {
-  	int flow_size = 0;
-  	while( ( flow_size < G2K14S_FLOW_MAX ) && ( c[ flow_size ] != '\0' ) ) {
-    	flow_size++;
-  	}
-  	for( int disp_p = - G2K14S_BUF_SIZE; disp_p < flow_size; disp_p++ ) {
-    	for( int buf_p = 0; buf_p < G2K14S_BUF_SIZE; buf_p++ ) {
-      		int flow_p = disp_p + buf_p;
-      		if( ( flow_p >= 0 ) && ( flow_p < flow_size ) ) {
-        		buf[ buf_p ] = asc2G2k14s( c[ flow_p ] );
-      		}
-      		else {
-       			buf[ buf_p ] = asc2G2k14s( ' ' );
-      		}
-    	}
-    	delay( delay_time_ms );
-  	}
+	int flow_size = 0;
+	while( ( flow_size < G2K14S_FLOW_MAX ) && ( c[ flow_size ] != '\0' ) ) {
+		flow_size++;
+	}
+	for( int disp_p = - G2K14S_BUF_SIZE; disp_p < flow_size; disp_p++ ) {
+		for( int buf_p = 0; buf_p < G2K14S_BUF_SIZE; buf_p++ ) {
+			int flow_p = disp_p + buf_p;
+			if( ( flow_p >= 0 ) && ( flow_p < flow_size ) ) {
+				buf[ buf_p ] = asc2G2k14s( c[ flow_p ] );
+			}
+			else {
+				buf[ buf_p ] = asc2G2k14s( ' ' );
+			}
+		}
+	delay( delay_time_ms );
+	}
 }
 
 void G2k14s_class::lamp_test( const int delay_time_ms ) {
 	for( int j = 0; j < G2K14S_BUF_SIZE; j++ ) {
-    	for( int i = 0; i < G2K14S_BUF_SIZE; i++ ) {
-      		buf[ i ] = 0x8000 >> j;
-    	}
-    delay( delay_time_ms );
+		for( int i = 0; i < G2K14S_BUF_SIZE; i++ ) {
+			buf[ i ] = 0x8000 >> j;
+		}
+		delay( delay_time_ms );
 	}
   	for( int j = 0; j < G2K14S_BUF_SIZE; j++ ) {
-    	for( int i = 0; i < G2K14S_BUF_SIZE; i++ ) {
-      		buf[ i ] = ~( 0x8000 >> j );
-    	}
-    delay( delay_time_ms );
-  	}
+		for( int i = 0; i < G2K14S_BUF_SIZE; i++ ) {
+			buf[ i ] = ~( 0x8000 >> j );
+		}
+		delay( delay_time_ms );
+	}
 }
 
 void G2k14s_class::char_test( const int delay_time_ms ) {
 	for( int i = 0; i < 16; i++ ) { buf[ i ] = asc2G2k14s( i + 0x00 ); }  delay( delay_time_ms );
-  	for( int i = 0; i < 16; i++ ) { buf[ i ] = asc2G2k14s( i + 0x20 ); }  delay( delay_time_ms );
-  	for( int i = 0; i < 16; i++ ) { buf[ i ] = asc2G2k14s( i + 0x30 ); }  delay( delay_time_ms );
-  	for( int i = 0; i < 16; i++ ) { buf[ i ] = asc2G2k14s( i + 0x40 ); }  delay( delay_time_ms );
-  	for( int i = 0; i < 16; i++ ) { buf[ i ] = asc2G2k14s( i + 0x50 ); }  delay( delay_time_ms );
-  	for( int i = 0; i < 16; i++ ) { buf[ i ] = asc2G2k14s( i + 0x60 ); }  delay( delay_time_ms );
-  	for( int i = 0; i < 16; i++ ) { buf[ i ] = asc2G2k14s( i + 0x70 ); }  delay( delay_time_ms );
-  	for( int i = 0; i < 16; i++ ) { buf[ i ] = asc2G2k14s( i + 0x80 ); }  delay( delay_time_ms );
+	for( int i = 0; i < 16; i++ ) { buf[ i ] = asc2G2k14s( i + 0x20 ); }  delay( delay_time_ms );
+	for( int i = 0; i < 16; i++ ) { buf[ i ] = asc2G2k14s( i + 0x30 ); }  delay( delay_time_ms );
+	for( int i = 0; i < 16; i++ ) { buf[ i ] = asc2G2k14s( i + 0x40 ); }  delay( delay_time_ms );
+	for( int i = 0; i < 16; i++ ) { buf[ i ] = asc2G2k14s( i + 0x50 ); }  delay( delay_time_ms );
+	for( int i = 0; i < 16; i++ ) { buf[ i ] = asc2G2k14s( i + 0x60 ); }  delay( delay_time_ms );
+	for( int i = 0; i < 16; i++ ) { buf[ i ] = asc2G2k14s( i + 0x70 ); }  delay( delay_time_ms );
+	for( int i = 0; i < 16; i++ ) { buf[ i ] = asc2G2k14s( i + 0x80 ); }  delay( delay_time_ms );
 }
